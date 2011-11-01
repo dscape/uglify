@@ -25,7 +25,7 @@ app.post('/', function (request,response) {
   }
 });
 
-app.listen(process.argv[2]||80);
+app.listen(8000);
 
 process.on('uncaughtException', function(err) { console.log(JSON.stringify(err)); });
 
