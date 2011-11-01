@@ -1,0 +1,26 @@
+{
+  "name": "uglify",
+  "description": "uglify your code online",
+  "homepage": "http://github.com/dscape/uglify",
+  "repository": "git://github.com/dscape/uglify",
+  "version": "0.0.1",
+  "author": "Nuno Job <nunojobpinto@gmail.com> (http://nunojob.com)",
+  "keywords": [
+    "uglifyjs",
+    "min",
+    "minimize",
+    "javascript"
+  ],
+  "dependencies": {
+    "uglify-js": "~1.1.1",
+    "express": "2.5.0"
+  },
+  "main": "./server.js",
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "subdomain": "uglify",
+  "scripts": {
+    "start": "server.js"
+  }
+}

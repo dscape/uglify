@@ -1,0 +1,55 @@
+<html>
+ <head>
+   <title>
+     Uglify - Minimize Javascript online with Uglify.js, Node.Js and Nodejitsu
+  </title>
+  <script type="text/javascript" src="/js/jquery.js"></script>
+  <script type="text/javascript" src="/js/tmpl.js"></script>
+  <script type="text/javascript" src="/js/ko.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    var model   = 
+      { before : ko.observable('')
+      , after  : ko.observable('')
+      , curl   : ko.observable('(function(){})()')
+      };
+
+    function post(js) {
+      $.post('/', {js: js}, function (data) {
+        if(data.err) {
+          return alert('Invalid input: javascript dumbass! ' + data.err);
+        }
+        model.after(data);
+        model.curl(data.replace(/"/g, '\\"')
+                       .replace(/'/g, '"')
+                       .replace(/\n/g, "\\ \n"));
+      });
+    }
+
+    model.before.subscribe(function(new_value) {
+      if(new_value && new_value!=='') { post(new_value); };
+    });
+    ko.applyBindings(model);
+  });
+  </script>
+ </head>
+ <body>
+   <h1>Uglify - Minimize Javascript Code</h1>
+   <div>
+     <h2>Before</h2>
+     <textarea style="width: 600px; height: 200px;" 
+               data-bind="value: before"></textarea>
+     <h2>After</h2>
+     <textarea style="width: 600px; height: 200px;" 
+               data-bind="value: after"></textarea>
+   </div>
+   <div>
+     <h3>SAAS</h3>
+     <pre>
+       curl -vX POST http://uglify.nodejitsu.com/ --data 'js=<span data-bind="text: curl"></span>'
+     </pre>
+     <h3>Bugs<h3>
+       <p><a href="http://github.com/dscape/uglify/issues">http://github.com/dscape/uglify/issues</a></p>
+   </div>
+ </body>
+</html>
