@@ -20,14 +20,16 @@
           return alert('Invalid input: javascript dumbass! ' + data.err);
         }
         model.after(data);
-        model.curl(data.replace(/"/g, '\\"')
-                       .replace(/'/g, '"')
-                       .replace(/\n/g, "\\ \n"));
       });
     }
 
     model.before.subscribe(function(new_value) {
-      if(new_value && new_value!=='') { post(new_value); };
+      if(new_value && new_value!=='') {
+        model.curl(new_value.replace(/"/g, '\\"')
+                            .replace(/'/g, '"')
+                            .replace(/\n/g, "\\ \n"));
+        post(new_value);
+      };
     });
     ko.applyBindings(model);
   });
